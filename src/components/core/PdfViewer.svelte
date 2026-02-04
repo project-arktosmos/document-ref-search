@@ -1,6 +1,7 @@
 <script lang="ts">
 	import classNames from 'classnames';
 	import { onDestroy } from 'svelte';
+	import { base } from '$app/paths';
 	import type { PDFDocumentProxy } from 'pdfjs-dist';
 	import type { TextItem } from 'pdfjs-dist/types/src/display/api';
 
@@ -33,7 +34,7 @@
 
 		try {
 			const pdfjsLib = await import('pdfjs-dist');
-			pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+			pdfjsLib.GlobalWorkerOptions.workerSrc = `${base}/pdf.worker.min.mjs`;
 
 			const arrayBuffer = await pdfFile.arrayBuffer();
 			pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;

@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import { base } from '$app/paths';
 import { FileType, getFileTypeFromMime } from '$types/file.type';
 
 export async function extractTextFromFile(file: File): Promise<string> {
@@ -32,7 +33,7 @@ async function extractTextFromPdf(file: File): Promise<string> {
 	const pdfjsLib = await import('pdfjs-dist');
 
 	// Use local worker to avoid CORS issues
-	pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+	pdfjsLib.GlobalWorkerOptions.workerSrc = `${base}/pdf.worker.min.mjs`;
 
 	const arrayBuffer = await file.arrayBuffer();
 	const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
